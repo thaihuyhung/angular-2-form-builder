@@ -1,0 +1,15 @@
+<md-card>
+  <form novalidate [formGroup]="containerForm" (ngSubmit)="onSubmit(containerForm)">
+    <!-- Main section -->
+    <div formArrayName="sections">
+      <form-section *ngFor="let section of containerForm.controls.sections.controls; let i = index"
+                    [sectionForm]="section"
+                    [sectionIndex]="i"
+                    class="m-b-3"></form-section>
+    </div>
+
+    <md-card-actions>
+      <button md-button color="primary" type="submit" [disabled]="containerForm.invalid">CREATE FORM</button>
+    </md-card-actions>
+  </form>
+</md-card>

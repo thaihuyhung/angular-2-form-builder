@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {SectionService} from "./services/section.service";
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Hello World';
+  containerForm: FormGroup;
+  isSubmitted: boolean = false;
+
+  handleSubmitted(containerForm){
+    this.containerForm = containerForm;
+    this.isSubmitted = true;
+  }
+
+  handleGoBack(){
+    this.isSubmitted = false;
+  }
 }

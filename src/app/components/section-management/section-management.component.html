@@ -1,0 +1,19 @@
+<md-card class="example-card">
+  <md-card-header>
+    <md-card-title>SECTIONS</md-card-title>
+  </md-card-header>
+  <md-card-content>
+    <div class="sections">
+      <div *ngFor="let section of containerForm.controls.sections.controls"
+           [ngClass]="{'main-section': section.value.isMainSection}">
+        {{section.value.name}}
+      </div>
+    </div>
+    <div class="section-m-input" fxLayout="row" fxLayoutAlign="space-between center">
+      <md-input-container>
+        <input md-input placeholder="New Section" [(ngModel)]="newSectionValue">
+      </md-input-container>
+      <button md-raised-button color="accent" (click)="onAddNewSection()" [disabled]="!newSectionValue">Add</button>
+    </div>
+  </md-card-content>
+</md-card>

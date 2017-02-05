@@ -1,0 +1,33 @@
+.left-border{
+  width: 10px;
+  background-color: #635e5e;
+  cursor: pointer;
+  position: absolute;
+  z-index: 2;
+}
+.left-border--rectangle{
+  top: 0;
+  bottom: 0;
+}
+.left-border--circle{
+  border-radius: 16px;
+  width: 16px;
+  height: 16px;
+}
+.input-sub-container{
+  padding-right: 45px;
+  position: relative;
+}
+.input-wrapper{
+  position: relative;
+  margin-bottom: 8px;
+  .input-container, .input-sub-container{
+    padding-left: 16px;
+  }
+}
+.input-sub-container-row{
+  position: relative;
+}
+.section-border-line{
+  border-top: 1px dashed rgba(99, 94, 94, 0.44);
+}

@@ -1,0 +1,81 @@
+<div class="m-t-3 m-b-3" [ngClass]="{'section-border-line': !sectionForm.value.isMainSection}"
+     [formGroup]="sectionForm">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div *ngIf="sectionForm.value.isMainSection">{{sectionForm.value.name}}</div>
+    <button md-icon-button (click)="onRemoveSection(sectionForm)" type="button">
+      <md-icon>close</md-icon>
+    </button>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <md-input-container fxFlex="100%">
+      <input md-input placeholder="Section description" formControlName="description" required>
+    </md-input-container>
+  </div>
+
+  <div formArrayName="inputs">
+    <div *ngFor="let input of sectionForm.controls.inputs.controls; let inputIndex = index;" class="input-wrapper"
+         [formGroupName]="inputIndex">
+      <div class="left-border left-border--rectangle"></div>
+      <div class="input-container" fxLayout="row" fxLayoutAlign="space-between center">
+        <!-- Normal input type-->
+        <md-input-container fxFlex="30%">
+          <input md-input placeholder="Field name" formControlName="fieldName" required>
+        </md-input-container>
+
+        <md-select placeholder="Type" formControlName="fieldType" fxFlex="30%">
+          <md-option *ngFor="let key of fieldTypeKeys" [value]="key">
+            {{fieldTypes[key]}}
+          </md-option>
+        </md-select>
+
+        <md-select placeholder="Mandatory" formControlName="isRequired" fxFlex="30%">
+          <md-option [value]="true">
+            Required
+          </md-option>
+          <md-option [value]="false">
+            Optional
+          </md-option>
+        </md-select>
+
+        <button md-icon-button (click)="onRemoveInput(inputIndex)" type="button">
+          <md-icon>close</md-icon>
+        </button>
+      </div>
+      <div formArrayName="options" class="input-sub-container" *ngIf="hasSubPanel(input.value.fieldType, input)">
+        <div *ngFor="let option of input.controls.options.controls; let optionIndex = index;"
+             [formGroupName]="optionIndex">
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="input-sub-container-row">
+            <div class="left-border left-border--circle"></div>
+            <md-input-container fxFlex="40%" class="m-l-3">
+              <input md-input placeholder="Option name" formControlName="optionName">
+            </md-input-container>
+
+            <md-select placeholder="Action" formControlName="targetSection" fxFlex="40%" (onOpen)="onOpenSelect()">
+              <md-option [value]="null">
+                Add section: None
+              </md-option>
+              <md-option *ngFor="let section of sectionList" [value]="section.value.name">
+                Add section: {{section.value.name}}
+              </md-option>
+            </md-select>
+
+            <button md-icon-button (click)="onRemoveOption(input, optionIndex)" type="button">
+              <md-icon>close</md-icon>
+            </button>
+          </div>
+        </div>
+        <button md-raised-button (click)="onAddNewOption(input)" type="button" [disabled]="input.invalid">
+          <md-icon>add</md-icon>
+          Add new choice
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<button md-raised-button color="accent" (click)="onAddNewInput()" type="button" [disabled]="sectionForm.invalid">
+  <md-icon>add</md-icon>
+  Add new field
+</button>
+

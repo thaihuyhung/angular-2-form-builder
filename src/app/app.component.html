@@ -1,3 +1,13 @@
-<h1>
-  {{title}}
-</h1>
+<div class="flex-container"
+     fxLayout="row" fxLayout.xs="column"
+     fxLayoutAlign="center start" fxLayoutAlign.xs="start start" *ngIf="!isSubmitted">
+  <div class="flex-item" fxFlex="75%" fxFlex.xs="100%" class="section-container">
+    <section-container (onSubmitted)="handleSubmitted($event)"></section-container>
+  </div>
+  <div class="flex-item" fxFlex="25%" fxFlex.xs="100%">
+    <section-management></section-management>
+  </div>
+</div>
+<div>
+  <generated-form [containerForm]="containerForm" *ngIf="isSubmitted" (onGoBack)="handleGoBack()"></generated-form>
+</div>

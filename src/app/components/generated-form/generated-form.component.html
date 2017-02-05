@@ -1,0 +1,22 @@
+<md-card>
+  <form novalidate [formGroup]="generatedForm" (ngSubmit)="onSubmit(generatedForm)">
+    <div formArrayName="sections">
+      <div *ngFor="let section of generatedForm.controls.sections.controls; let i = index">
+        <label>{{section.description}}</label>
+        <div formArrayName="inputs">
+          <div *ngFor="let input of section.controls.inputs.controls; let inputIndex = index;">
+            <!-- Normal Input -->
+            <md-input-container *ngIf="isShown('normal', input.value.fieldType)">
+              <input md-input [placeholder]="input.value.fieldName"
+                     [formControlName]="input.value.fieldName"
+                     [required]="input.value.isRequired">
+            </md-input-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <md-card-actions>
+    <button md-button color="primary" type="button" (click)="onBack()">BACK</button>
+  </md-card-actions>
+</md-card>
